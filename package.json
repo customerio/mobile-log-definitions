@@ -1,0 +1,19 @@
+{
+  "name": "mobile-log-definitions",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A centralized system for defining, managing, and documenting log events across features and platforms.",
+  "scripts": {
+    "buildJson": "node scripts/generate-json-definitions.js",
+    "validateGeneration": "node scripts/validate-json-generated.js",
+    "test": "jest"
+  },
+  "author": "win@customer.io",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1"
+  }
+}
