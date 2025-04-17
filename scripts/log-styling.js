@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-const log = {
+const logger = {
   heading: (msg) => {
     console.log(chalk.bold.cyan(`\n🚀 ${msg}`));
   },
@@ -21,4 +21,4 @@ const log = {
   },
 };
 
-export default log;
+export default logger;

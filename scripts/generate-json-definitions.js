@@ -10,7 +10,7 @@ import {
   isLibSonnetFile,
   getOutputPath,
 } from "./utils.js";
-import log from "./log-styling.js";
+import logger from "./log-styling.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +24,7 @@ function buildJsonnetFile(inputPath) {
 
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
 
-  log.info(`Compiling Jsonnet to JSON for: ${relativePath}`);
+  logger.info(`Compiling Jsonnet to JSON for: ${relativePath}`);
   try {
     execSync(`jsonnet ${inputPath} > ${outputFile}`);
   } catch (err) {
@@ -33,18 +33,23 @@ function buildJsonnetFile(inputPath) {
   }
 }
 
-log.heading("Generating features JSON files from Jsonnet definitions...");
-log.blank();
+logger.heading("Generating features JSON files from Jsonnet definitions...");
+logger.blank();
+
+if (!fs.existsSync(INPUT_DIR)) {
+  logger.warn(`Features directory missing: ${INPUT_DIR}`);
+  process.exit(0);
+}
 
 walkDir(INPUT_DIR, (filePath) => {
   if (isJsonnetFile(filePath)) {
     buildJsonnetFile(filePath);
   } else if (!isLibSonnetFile(filePath)) {
-    log.warn(
+    logger.warn(
       `Skipping unsupported file: ${path.relative(INPUT_DIR, filePath)}`
     );
   }
 });
 
-log.blank();
-log.success("Jsonnet files transformed to JSON successfully!");
+logger.blank();
+logger.success("Jsonnet files transformed to JSON successfully!");
