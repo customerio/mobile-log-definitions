@@ -1,0 +1,23 @@
+{
+  "name": "mobile-log-definitions",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A centralized system for defining, managing, and documenting log events across features and platforms.",
+  "scripts": {
+    "build": "tsc",
+    "buildJson": "npx tsx scripts/generate-json-definitions.ts",
+    "validateGeneration": "npx tsx scripts/validate-json-generated.ts",
+    "test": "jest"
+  },
+  "author": "win@customer.io",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "jest": "^29.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1"
+  }
+}

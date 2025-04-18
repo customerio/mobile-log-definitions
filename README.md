@@ -4,16 +4,100 @@
   </a>
 </p>
 
-# 📘 Log Definition Source of Truth
+# 📦 Mobile Log Definitions
 
-A centralized system for defining, managing, and documenting log events across features and platforms.
+A structured, testable system for defining, validating, and documenting logging events using [Jsonnet](https://jsonnet.org/).
 
 ---
 
-## 🔍 Overview
+## 🧭 Overview
 
-This repository provides a **single source of truth** for all Mobile SDKs console log events used in our codebase. Each feature has its own log definition, and all definitions are written in **Jsonnet**, allowing for modular, DRY (Don't Repeat Yourself) design.
+This repository provides a **central source of truth** for CIO mobile SDKs log definitions across features and platforms.
 
-The workflow automates generation of:
-- **JSON** artifacts for machine-readable log definitions
-- **Notion documentation** with clear descriptions and **Mermaid diagrams**
+- Each feature has its own `.jsonnet` definition under `features/<feature-name>/`
+- These files are compiled into machine-readable `.json` files
+- Unit tests verify the structure and content of each feature’s output `.json` files
+
+---
+
+## 📁 Project structure
+
+```
+.
+├── features/                   # Jsonnet definitions per feature
+│   ├── push/
+│   │   └── push.jsonnet
+│   ├── init/
+│   │   └── core.jsonnet
+│   └── ...
+├── generated/                 # Compiled JSON output
+│   └── json/
+│       └── push/
+│           └── push.json
+├── scripts/                   # Helper scripts
+│   ├── ...
+├── __tests__/                 # Jest unit tests per feature
+│   ├── ...
+```
+
+---
+
+## 🚀 Getting started
+
+### 1. Install requirements
+
+Install dependencies for building and testing:
+
+```bash
+brew install jsonnet
+npm install
+```
+
+### 2. Build JSON files
+
+Run the build script to generate `.json` files from all `.jsonnet` files in the `features/` directory:
+
+```bash
+npm run buildJson
+```
+
+### 3. Validate output completeness
+
+Check that all `.jsonnet` files have corresponding `.json` outputs:
+
+```bash
+npm run validateGeneration
+```
+
+---
+
+## 🧪 Adding or updating a feature
+
+To define a new logging feature:
+
+1. Create a `.jsonnet` file under `features/<your-feature>/`
+2. Run `npm run buildJson` to generate the `.json` file
+3. Add a test under `__tests__/<your-feature>.test.js`
+4. Run `npm test` to validate
+
+---
+
+## ✅ Testing
+
+Each `.jsonnet` feature must have a corresponding Jest test file under `__tests__/` that:
+
+- Verifies required keys
+- Checks for uniqueness of IDs
+- Ensures optional fields like `success`, `error`, `next` are valid if present
+
+Run all tests:
+
+```bash
+npm test
+```
+
+---
+
+## 📄 License
+
+MIT
