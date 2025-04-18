@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import logger from "./log-styling.js";
-import { walkDir, isJsonnetFile, getOutputPath } from "./utils.js";
+import logger from "./log-styling";
+import { walkDir, isJsonnetFile, getOutputPath } from "./utils";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,9 +15,9 @@ if (!fs.existsSync(INPUT_DIR)) {
   process.exit(0);
 }
 
-let missingFiles = [];
+const missingFiles: string[] = [];
 
-walkDir(INPUT_DIR, (inputPath) => {
+walkDir(INPUT_DIR, (inputPath: string) => {
   if (isJsonnetFile(inputPath)) {
     const relativePath = path.relative(INPUT_DIR, inputPath);
     const expectedOutputPath = getOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
@@ -32,10 +32,8 @@ if (missingFiles.length === 0) {
   logger.success("All Jsonnet files have corresponding generated JSON files!");
   process.exit(0);
 } else {
-  logger.error(
-    "Missing generated JSON files for the following Jsonnet definitions:"
-  );
-  missingFiles.forEach((file) => {
+  logger.error("Missing generated JSON files for the following Jsonnet definitions:");
+  missingFiles.forEach((file: string) => {
     logger.error(`  - ${file}`);
   });
   process.exit(1);

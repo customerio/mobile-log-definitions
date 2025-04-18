@@ -1,5 +1,3 @@
-// TODO Add description
-
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -9,8 +7,8 @@ import {
   isJsonnetFile,
   isLibSonnetFile,
   getOutputPath,
-} from "./utils.js";
-import logger from "./log-styling.js";
+} from "./utils";
+import logger from "./log-styling";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,7 +16,7 @@ const __dirname = path.dirname(__filename);
 const INPUT_DIR = path.resolve(__dirname, "../features");
 const OUTPUT_DIR = path.resolve(__dirname, "../generated/json");
 
-function buildJsonnetFile(inputPath) {
+function buildJsonnetFile(inputPath: string): void {
   const relativePath = path.relative(INPUT_DIR, inputPath);
   const outputFile = getOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
 
@@ -28,7 +26,7 @@ function buildJsonnetFile(inputPath) {
   try {
     execSync(`jsonnet ${inputPath} > ${outputFile}`);
   } catch (err) {
-    log.error(`Failed to compile ${relativePath}`);
+    logger.error(`Failed to compile ${relativePath}`);
     throw err;
   }
 }
@@ -41,7 +39,7 @@ if (!fs.existsSync(INPUT_DIR)) {
   process.exit(0);
 }
 
-walkDir(INPUT_DIR, (filePath) => {
+walkDir(INPUT_DIR, (filePath: string) => {
   if (isJsonnetFile(filePath)) {
     buildJsonnetFile(filePath);
   } else if (!isLibSonnetFile(filePath)) {
