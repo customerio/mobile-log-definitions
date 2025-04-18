@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "buildJson": "npx tsx scripts/generate-json-definitions.ts",
+    "buildDiagrams": "npx tsx scripts/generate-diagrams.ts",
     "validateGeneration": "npx tsx scripts/validate-json-generated.ts",
     "test": "jest"
   },
