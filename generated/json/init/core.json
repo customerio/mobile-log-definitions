@@ -1,0 +1,19 @@
+[
+   {
+      "error": "core-sdk-init-failure",
+      "id": "core-sdk-init",
+      "label": "Initializing core SDK",
+      "log": "[CIO][Init] Initializing core SDK with prams: {...}",
+      "success": "core-sdk-init-success"
+   },
+   {
+      "id": "core-sdk-init-success",
+      "label": "Core SDK init success",
+      "log": "[CIO][Init] Core SDK init success!"
+   },
+   {
+      "id": "core-sdk-init-failure",
+      "label": "Core SDK init failed",
+      "log": "[CIO][Init] Core SDK init success with error: {...}"
+   }
+]
