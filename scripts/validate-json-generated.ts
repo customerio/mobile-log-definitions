@@ -33,6 +33,7 @@ if (missingFiles.length === 0) {
   process.exit(0);
 } else {
   logger.error("Missing generated JSON files for the following Jsonnet definitions:");
+  logger.info("This likely means you need to run 'npm run buildJson'");
   missingFiles.forEach((file: string) => {
     logger.error(`  - ${file}`);
   });
