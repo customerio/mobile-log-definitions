@@ -61,7 +61,15 @@ Run the build script to generate `.json` files from all `.jsonnet` files in the 
 npm run buildJson
 ```
 
-### 3. Validate output completeness
+### 3. Build Mermaid diagrams
+
+Run the build script to generate `.mmd` diagrams from all `.json` files in the `generated/json` directory:
+
+```bash
+npm run buildDiagrams
+```
+
+### 4. Validate output completeness
 
 Check that all `.jsonnet` files have corresponding `.json` outputs:
 
@@ -77,8 +85,9 @@ To define a new logging feature:
 
 1. Create a `.jsonnet` file under `features/<your-feature>/`
 2. Run `npm run buildJson` to generate the `.json` file
-3. Add a test under `__tests__/<your-feature>.test.js`
-4. Run `npm test` to validate
+3. Run `npm run buildDiagrams` to generate the `.mmd` file
+4. Add a test under `__tests__/<your-feature>.test.js`
+5. Run `npm test` to validate
 
 ---
 
