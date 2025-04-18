@@ -1,0 +1,27 @@
+graph TD
+core-sdk-init["Initializing core SDK"]
+core-sdk-init -->|Success| core-sdk-init-success
+core-sdk-init -->|Error| core-sdk-init-failure
+core-sdk-init-success["Core SDK init success"]
+core-sdk-init-success --> in-app-module-init
+core-sdk-init-failure["Core SDK init failed"]
+in-app-module-init["Initializing in-app module"]
+in-app-module-init -->|Success| in-app-module-init-success
+in-app-module-init -->|Error| in-app-module-init-failure
+in-app-module-init-success["Initializing in-app module success"]
+in-app-module-init-success --> in-app-module-init-polling
+in-app-module-init-failure["Initializing in-app module failed"]
+in-app-module-init-polling["Polling in-app messages"]
+in-app-module-init-polling -->|Success| in-app-module-polling-success
+in-app-module-init-polling -->|Error| in-app-module-polling-failure
+in-app-module-polling-success["Polling in-app messages success"]
+in-app-module-polling-success --> in-app-module-message-loading
+in-app-module-polling-failure["Polling in-app messages failed"]
+in-app-module-message-loading["Loading in-app message"]
+in-app-module-message-loading -->|Success| in-app-module-message-displayed
+in-app-module-message-loading -->|Error| in-app-module-message-loading-failed
+in-app-module-message-displayed["Displaying in-app message"]
+in-app-module-message-displayed --> in-app-module-message-dismissed
+in-app-module-message-loading-failed["Loading in-app message failed"]
+in-app-module-message-loading-failed --> in-app-module-message-dismissed
+in-app-module-message-dismissed["Dismissing in-app message"]
