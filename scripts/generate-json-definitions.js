@@ -8,7 +8,7 @@ import {
   walkDir,
   isJsonnetFile,
   isLibSonnetFile,
-  getOutputPath,
+  getJsonOutputPath,
 } from "./utils.js";
 import logger from "./log-styling.js";
 
@@ -20,7 +20,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "../generated/json");
 
 function buildJsonnetFile(inputPath) {
   const relativePath = path.relative(INPUT_DIR, inputPath);
-  const outputFile = getOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
+  const outputFile = getJsonOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
 
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
 

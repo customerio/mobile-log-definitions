@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import logger from "./log-styling.js";
-import { walkDir, isJsonnetFile, getOutputPath } from "./utils.js";
+import { walkDir, isJsonnetFile, getJsonOutputPath } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +20,7 @@ let missingFiles = [];
 walkDir(INPUT_DIR, (inputPath) => {
   if (isJsonnetFile(inputPath)) {
     const relativePath = path.relative(INPUT_DIR, inputPath);
-    const expectedOutputPath = getOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
+    const expectedOutputPath = getJsonOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
 
     if (!fs.existsSync(expectedOutputPath)) {
       missingFiles.push(relativePath);

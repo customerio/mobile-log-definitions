@@ -30,9 +30,24 @@ export function isLibSonnetFile(file) {
 }
 
 /**
+ * Determines if a file is a valid JSON file
+ */
+export function isJsonFile(file) {
+  return file.endsWith(".json");
+}
+
+/**
  * Converts a .jsonnet input path to a .json output path.
  */
-export function getOutputPath(inputPath, inputRoot, outputRoot) {
+export function getJsonOutputPath(inputPath, inputRoot, outputRoot) {
   const relativePath = path.relative(inputRoot, inputPath);
   return path.join(outputRoot, relativePath.replace(/\.jsonnet$/, ".json"));
+}
+
+/**
+ * Converts a .json input path to a .mmd output path.
+ */
+export function getMermaidOutputPath(inputPath, inputRoot, outputRoot) {
+  const relativePath = path.relative(inputRoot, inputPath);
+  return path.join(outputRoot, relativePath.replace(/\.json$/, ".mmd"));
 }

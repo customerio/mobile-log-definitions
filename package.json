@@ -5,6 +5,7 @@
   "description": "A centralized system for defining, managing, and documenting log events across features and platforms.",
   "scripts": {
     "buildJson": "node scripts/generate-json-definitions.js",
+    "buildDiagrams": "node scripts/generate-diagrams.js",
     "validateGeneration": "node scripts/validate-json-generated.js",
     "test": "jest"
   },
