@@ -54,6 +54,7 @@ function generateDiagram(filePath: string): void {
 
 if (!fs.existsSync(INPUT_DIR)) {
   logger.warn(`Generated directory is missing: ${INPUT_DIR}`);
+  logger.info("This likely means you need to run 'npm run buildJson'");
   process.exit(0);
 }
 
