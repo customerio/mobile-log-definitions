@@ -1,0 +1,18 @@
+graph TD
+core-sdk-init["Initializing core SDK"]
+core-sdk-init --> data-pipelines-module-init
+core-sdk-init -->|Error| core-sdk-init-already-initialized
+core-sdk-init-already-initialized["Core SDK already initialized"]
+data-pipelines-module-init["Initializing DataPipelines module"]
+data-pipelines-module-init -->|Success| data-pipelines-module-success
+data-pipelines-module-success["DataPipelines module init success"]
+data-pipelines-module-success --> push-module-init
+push-module-init["Initializing Push module"]
+push-module-init --> push-google-services-available
+push-google-services-available["Google Services available (Android only)"]
+push-google-services-available --> push-module-success
+push-google-services-available -->|Error| push-google-services-error
+push-google-services-error["Google Services NOT available (Android only)"]
+push-module-success["Push module init success"]
+push-module-success --> core-sdk-init-success
+core-sdk-init-success["Core SDK init success"]

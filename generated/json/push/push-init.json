@@ -1,0 +1,64 @@
+[
+   {
+      "error": "core-sdk-init-already-initialized",
+      "id": "core-sdk-init",
+      "label": "Initializing core SDK",
+      "log": "Creating new instance of CustomerIO SDK version: {{version}}...",
+      "next": "data-pipelines-module-init",
+      "tag": "Init"
+   },
+   {
+      "id": "core-sdk-init-already-initialized",
+      "label": "Core SDK already initialized",
+      "log": "CustomerIO instance is already initialized, skipping the initialization",
+      "tag": "Init"
+   },
+   {
+      "id": "data-pipelines-module-init",
+      "label": "Initializing DataPipelines module",
+      "log": "Initializing SDK module DataPipelines with config: {{config}}",
+      "success": "data-pipelines-module-success",
+      "tag": "Init"
+   },
+   {
+      "id": "data-pipelines-module-success",
+      "label": "DataPipelines module init success",
+      "log": "CustomerIO DataPipelines module is initialized and ready to use",
+      "next": "push-module-init",
+      "tag": "Init"
+   },
+   {
+      "id": "push-module-init",
+      "label": "Initializing Push module",
+      "log": "Initializing SDK module MessagingPushFCM with config: {{config}}",
+      "next": "push-google-services-available",
+      "tag": "Init"
+   },
+   {
+      "error": "push-google-services-error",
+      "id": "push-google-services-available",
+      "label": "Google Services available (Android only)",
+      "log": "Google Play Services is available for this device",
+      "next": "push-module-success",
+      "tag": "Push"
+   },
+   {
+      "id": "push-google-services-error",
+      "label": "Google Services NOT available (Android only)",
+      "log": "Google Play Services is NOT available for this device with result: {{result}}",
+      "tag": "Push"
+   },
+   {
+      "id": "push-module-success",
+      "label": "Push module init success",
+      "log": "CustomerIO MessagingPushFCM module is initialized and ready to use",
+      "next": "core-sdk-init-success",
+      "tag": "Init"
+   },
+   {
+      "id": "core-sdk-init-success",
+      "label": "Core SDK init success",
+      "log": "CustomerIO SDK is initialized and ready to use",
+      "tag": "Init"
+   }
+]
