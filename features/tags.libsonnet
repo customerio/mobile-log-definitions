@@ -1,0 +1,4 @@
+{
+  initTag: "Init",
+  pushTag: "Push"
+}
