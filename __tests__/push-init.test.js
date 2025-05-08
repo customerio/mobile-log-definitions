@@ -26,10 +26,15 @@ describe('Push notifications init flow', () => {
         "data-pipelines-module-init",
         "data-pipelines-module-success",
         "push-module-init",
+        "pulling-current-push-token",
+        "pulling-current-push-token-failed",
         "push-google-services-available",
         "push-google-services-error",
         "push-module-success",
-        "core-sdk-init-success"
+        "core-sdk-init-success",
+        "pulled-current-push-token",
+        "storing-push-token",
+        "registering-push-token",
       ];
   
       expect(actualIds).toEqual(expectedIds);
@@ -76,7 +81,15 @@ describe('Push notifications init flow', () => {
       const event = data.find(e => e.id === 'push-module-init');
       expect(event).toBeDefined();
   
+      expect(event).toHaveProperty('next', 'pulling-current-push-token');
+    });
+
+    test('event "pulling-current-push-token" has correct link values', () => {
+      const event = data.find(e => e.id === 'pulling-current-push-token');
+      expect(event).toBeDefined();
+  
       expect(event).toHaveProperty('next', 'push-google-services-available');
+      expect(event).toHaveProperty('error', 'pulling-current-push-token-failed');
     });
 
     test('event "push-google-services-available" has correct link values', () => {
@@ -92,6 +105,27 @@ describe('Push notifications init flow', () => {
       expect(event).toBeDefined();
   
       expect(event).toHaveProperty('next', 'core-sdk-init-success');
+    });
+
+    test('event "core-sdk-init-success" has correct link values', () => {
+      const event = data.find(e => e.id === 'core-sdk-init-success');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'pulled-current-push-token');
+    });
+
+    test('event "pulled-current-push-token" has correct link values', () => {
+      const event = data.find(e => e.id === 'pulled-current-push-token');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'storing-push-token');
+    });
+
+    test('event "storing-push-token" has correct link values', () => {
+      const event = data.find(e => e.id === 'storing-push-token');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'registering-push-token');
     });
   });
 });
