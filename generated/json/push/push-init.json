@@ -31,8 +31,22 @@
       "id": "push-module-init",
       "label": "Initializing Push module",
       "log": "Initializing SDK module MessagingPushFCM with config: {{config}}",
-      "next": "push-google-services-available",
+      "next": "pulling-current-push-token",
       "tag": "Init"
+   },
+   {
+      "error": "pulling-current-push-token-failed",
+      "id": "pulling-current-push-token",
+      "label": "Pull push token (Android only)",
+      "log": "Getting current device token from Firebase messaging on app launch",
+      "next": "push-google-services-available",
+      "tag": "Push"
+   },
+   {
+      "id": "pulling-current-push-token-failed",
+      "label": "Pull push token failed (Android only)",
+      "log": "Failed to get device token with error: {{errorMessage}}",
+      "tag": "Push"
    },
    {
       "error": "push-google-services-error",
@@ -59,6 +73,27 @@
       "id": "core-sdk-init-success",
       "label": "Core SDK init success",
       "log": "CustomerIO SDK is initialized and ready to use",
+      "next": "pulled-current-push-token",
       "tag": "Init"
+   },
+   {
+      "id": "pulled-current-push-token",
+      "label": "Obtained current device token (Android only)",
+      "log": "Got current device token: {{token}}",
+      "next": "storing-push-token",
+      "tag": "Push"
+   },
+   {
+      "id": "storing-push-token",
+      "label": "Storing device token",
+      "log": "Storing device token: {{token}}",
+      "next": "registering-push-token",
+      "tag": "Push"
+   },
+   {
+      "id": "registering-push-token",
+      "label": "Obtained current device token",
+      "log": "Registering device token: {{token}}",
+      "tag": "Push"
    }
 ]
