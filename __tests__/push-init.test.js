@@ -49,5 +49,49 @@ describe('Push notifications init flow', () => {
         expect(event).toHaveProperty('tag');
       });
     });
+
+    test('event "core-sdk-init" has correct link values', () => {
+      const event = data.find(e => e.id === 'core-sdk-init');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('error', 'core-sdk-init-already-initialized');
+      expect(event).toHaveProperty('next', 'data-pipelines-module-init');
+    });
+
+    test('event "data-pipelines-module-init" has correct link values', () => {
+      const event = data.find(e => e.id === 'data-pipelines-module-init');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('success', 'data-pipelines-module-success');
+    });
+
+    test('event "data-pipelines-module-success" has correct link values', () => {
+      const event = data.find(e => e.id === 'data-pipelines-module-success');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'push-module-init');
+    });
+
+    test('event "push-module-init" has correct link values', () => {
+      const event = data.find(e => e.id === 'push-module-init');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'push-google-services-available');
+    });
+
+    test('event "push-google-services-available" has correct link values', () => {
+      const event = data.find(e => e.id === 'push-google-services-available');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'push-module-success');
+      expect(event).toHaveProperty('error', 'push-google-services-error');
+    });
+
+    test('event "push-module-success" has correct link values', () => {
+      const event = data.find(e => e.id === 'push-module-success');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'core-sdk-init-success');
+    });
   });
 });
