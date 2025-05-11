@@ -103,7 +103,7 @@ local tags = import '../tags.libsonnet';
   },
   {
     id: 'registering-push-token',
-    label: 'Obtained current device token',
+    label: 'Registering device token',
     tag: tags.pushTag,
     log: 'Registering device token: {{token}}',
   }
