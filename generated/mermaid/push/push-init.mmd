@@ -25,4 +25,8 @@ pulled-current-push-token["Obtained current device token (Android only)"]
 pulled-current-push-token --> storing-push-token
 storing-push-token["Storing device token"]
 storing-push-token --> registering-push-token
-registering-push-token["Obtained current device token"]
+registering-push-token["Registering device token"]
+registering-push-token --> automatic-profile-push-token-registration
+automatic-profile-push-token-registration["Automatically registering token to profile"]
+automatic-profile-push-token-registration --> show-push-notification
+show-push-notification["Showing push notification (Android only)"]

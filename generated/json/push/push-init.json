@@ -92,8 +92,22 @@
    },
    {
       "id": "registering-push-token",
-      "label": "Obtained current device token",
+      "label": "Registering device token",
       "log": "Registering device token: {{token}}",
+      "next": "automatic-profile-push-token-registration",
+      "tag": "Push"
+   },
+   {
+      "id": "automatic-profile-push-token-registration",
+      "label": "Automatically registering token to profile",
+      "log": "Automatically registering device token: {{token}} to newly identified profile: {{userId}}",
+      "next": "show-push-notification",
+      "tag": "Push"
+   },
+   {
+      "id": "show-push-notification",
+      "label": "Showing push notification (Android only)",
+      "log": "Showing notification for message: {{message}}",
       "tag": "Push"
    }
 ]

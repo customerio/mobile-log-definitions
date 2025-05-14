@@ -35,6 +35,8 @@ describe('Push notifications init flow', () => {
         "pulled-current-push-token",
         "storing-push-token",
         "registering-push-token",
+        "automatic-profile-push-token-registration",
+        "show-push-notification"
       ];
   
       expect(actualIds).toEqual(expectedIds);
@@ -126,6 +128,20 @@ describe('Push notifications init flow', () => {
       expect(event).toBeDefined();
   
       expect(event).toHaveProperty('next', 'registering-push-token');
+    });
+
+    test('event "registering-push-token" has correct link values', () => {
+      const event = data.find(e => e.id === 'registering-push-token');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'automatic-profile-push-token-registration');
+    });
+
+    test('event "automatic-profile-push-token-registration" has correct link values', () => {
+      const event = data.find(e => e.id === 'automatic-profile-push-token-registration');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'show-push-notification');
     });
   });
 });
