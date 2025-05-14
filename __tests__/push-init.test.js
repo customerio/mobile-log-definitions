@@ -36,7 +36,9 @@ describe('Push notifications init flow', () => {
         "storing-push-token",
         "registering-push-token",
         "automatic-profile-push-token-registration",
-        "show-push-notification"
+        "push-notification-delivered",
+        "show-push-notification",
+        "push-notification-opened"
       ];
   
       expect(actualIds).toEqual(expectedIds);
@@ -141,7 +143,21 @@ describe('Push notifications init flow', () => {
       const event = data.find(e => e.id === 'automatic-profile-push-token-registration');
       expect(event).toBeDefined();
   
+      expect(event).toHaveProperty('next', 'push-notification-delivered');
+    });
+
+    test('event "push-notification-delivered" has correct link values', () => {
+      const event = data.find(e => e.id === 'push-notification-delivered');
+      expect(event).toBeDefined();
+  
       expect(event).toHaveProperty('next', 'show-push-notification');
+    });
+
+    test('event "show-push-notification" has correct link values', () => {
+      const event = data.find(e => e.id === 'show-push-notification');
+      expect(event).toBeDefined();
+  
+      expect(event).toHaveProperty('next', 'push-notification-opened');
     });
   });
 });

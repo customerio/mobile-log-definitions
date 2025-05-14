@@ -28,5 +28,9 @@ storing-push-token --> registering-push-token
 registering-push-token["Registering device token"]
 registering-push-token --> automatic-profile-push-token-registration
 automatic-profile-push-token-registration["Automatically registering token to profile"]
-automatic-profile-push-token-registration --> show-push-notification
+automatic-profile-push-token-registration --> push-notification-delivered
+push-notification-delivered["Push notification delivered"]
+push-notification-delivered --> show-push-notification
 show-push-notification["Showing push notification (Android only)"]
+show-push-notification --> push-notification-opened
+push-notification-opened["Push notification opened"]
