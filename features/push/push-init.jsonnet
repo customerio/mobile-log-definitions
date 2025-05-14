@@ -106,5 +106,20 @@ local tags = import '../tags.libsonnet';
     label: 'Registering device token',
     tag: tags.pushTag,
     log: 'Registering device token: {{token}}',
+    next: 'automatic-profile-push-token-registration'
+  },
+
+  {
+    id: 'automatic-profile-push-token-registration',
+    label: 'Automatically registering token to profile',
+    tag: tags.pushTag,
+    log: 'Automatically registering device token: {{token}} to newly identified profile: {{userId}}',
+    next: 'show-push-notification'
+  },
+  {
+    id: 'show-push-notification',
+    label: 'Showing push notification (Android only)',
+    tag: tags.pushTag,
+    log: 'Showing notification for message: {{message}}',
   }
 ]
