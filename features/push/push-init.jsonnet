@@ -114,6 +114,13 @@ local tags = import '../tags.libsonnet';
     label: 'Automatically registering token to profile',
     tag: tags.pushTag,
     log: 'Automatically registering device token: {{token}} to newly identified profile: {{userId}}',
+    next: 'push-notification-delivered'
+  },
+  {
+    id: 'push-notification-delivered',
+    label: 'Push notification delivered',
+    tag: tags.pushTag,
+    log: 'Tracking push message delivered with deliveryId: {{deliveryId}}',
     next: 'show-push-notification'
   },
   {
@@ -121,5 +128,12 @@ local tags = import '../tags.libsonnet';
     label: 'Showing push notification (Android only)',
     tag: tags.pushTag,
     log: 'Showing notification for message: {{message}}',
+    next: "push-notification-opened"
+  },
+  {
+    id: 'push-notification-opened',
+    label: 'Push notification opened',
+    tag: tags.pushTag,
+    log: 'Tracking push message opened with payload: {{payload}}',
   }
 ]

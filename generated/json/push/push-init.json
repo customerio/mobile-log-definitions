@@ -101,6 +101,13 @@
       "id": "automatic-profile-push-token-registration",
       "label": "Automatically registering token to profile",
       "log": "Automatically registering device token: {{token}} to newly identified profile: {{userId}}",
+      "next": "push-notification-delivered",
+      "tag": "Push"
+   },
+   {
+      "id": "push-notification-delivered",
+      "label": "Push notification delivered",
+      "log": "Tracking push message delivered with deliveryId: {{deliveryId}}",
       "next": "show-push-notification",
       "tag": "Push"
    },
@@ -108,6 +115,13 @@
       "id": "show-push-notification",
       "label": "Showing push notification (Android only)",
       "log": "Showing notification for message: {{message}}",
+      "next": "push-notification-opened",
+      "tag": "Push"
+   },
+   {
+      "id": "push-notification-opened",
+      "label": "Push notification opened",
+      "log": "Tracking push message opened with payload: {{payload}}",
       "tag": "Push"
    }
 ]
