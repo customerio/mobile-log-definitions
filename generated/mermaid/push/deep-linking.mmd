@@ -1,0 +1,10 @@
+graph TD
+handling-push-deep-link-start["Handling push deep linking"]
+handling-push-deep-link-start --> push-deep-link-handled-callback
+handling-push-deep-link-start -->|Error| push-deep-link-not-handled
+push-deep-link-not-handled["Push deep link not handled"]
+push-deep-link-handled-callback["Push deep link handled by host app callback"]
+push-deep-link-handled-callback --> push-deep-link-handled-host-app
+push-deep-link-handled-host-app["Push deep link handled by host app"]
+push-deep-link-handled-host-app --> push-deep-link-handled-externally
+push-deep-link-handled-externally["Push deep link handled externally"]
