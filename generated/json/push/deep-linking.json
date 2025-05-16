@@ -1,0 +1,36 @@
+[
+   {
+      "error": "push-deep-link-not-handled",
+      "id": "handling-push-deep-link-start",
+      "label": "Handling push deep linking",
+      "log": "Handling push notification deep link with payload: {payload} - pushClickBehavior: {behavior}",
+      "next": "push-deep-link-handled-callback",
+      "tag": "Init"
+   },
+   {
+      "id": "push-deep-link-not-handled",
+      "label": "Push deep link not handled",
+      "log": "Push notification deep link not handled",
+      "tag": "Init"
+   },
+   {
+      "id": "push-deep-link-handled-callback",
+      "label": "Push deep link handled by host app callback",
+      "log": "Deep link handled by host app callback implementation",
+      "next": "push-deep-link-handled-host-app",
+      "tag": "Init"
+   },
+   {
+      "id": "push-deep-link-handled-host-app",
+      "label": "Push deep link handled by host app",
+      "log": "Deep link handled by internal host app navigation",
+      "next": "push-deep-link-handled-externally",
+      "tag": "Init"
+   },
+   {
+      "id": "push-deep-link-handled-externally",
+      "label": "Push deep link handled externally",
+      "log": "Deep link handled by external app",
+      "tag": "Init"
+   }
+]
