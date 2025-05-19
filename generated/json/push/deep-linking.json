@@ -3,7 +3,7 @@
       "error": "push-deep-link-not-handled",
       "id": "handling-push-deep-link-start",
       "label": "Handling push deep linking",
-      "log": "Handling push notification deep link with payload: {payload} - pushClickBehavior: {behavior}",
+      "log": "Handling push notification deep link with payload: {payload}",
       "next": "push-deep-link-handled-callback",
       "tag": "Init"
    },

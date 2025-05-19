@@ -5,7 +5,7 @@ local tags = import '../tags.libsonnet';
     id: 'handling-push-deep-link-start',
     label: 'Handling push deep linking',
     tag: tags.initTag,
-    log: 'Handling push notification deep link with payload: {payload} - pushClickBehavior: {behavior}',
+    log: 'Handling push notification deep link with payload: {payload}',
     next: 'push-deep-link-handled-callback',
     'error': 'push-deep-link-not-handled'
   },
