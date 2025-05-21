@@ -16,6 +16,20 @@ export function walkDir(dir: string, callback: (filePath: string) => void) {
 }
 
 /**
+ * Recursively walks a directory and calls a callback for every file with directory path and file name.
+ */
+export function walkDir2(dir: string, callback: (dir: string, fileName: string) => void) {
+  fs.readdirSync(dir, { withFileTypes: true }).forEach((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      walkDir2(fullPath, callback);
+    } else {
+      callback(dir, entry.name);
+    }
+  });
+}
+
+/**
  * Determines if a file is a valid Jsonnet file
  */
 export function isJsonnetFile(filePath: string) {

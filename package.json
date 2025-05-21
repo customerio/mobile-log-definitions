@@ -7,7 +7,9 @@
     "build": "tsc",
     "buildJson": "npx tsx scripts/generate-json-definitions.ts",
     "buildDiagrams": "npx tsx scripts/generate-diagrams.ts",
+    "generateMarkdownDocs": "npx tsx scripts/generate-docs.ts",
     "validateGeneration": "npx tsx scripts/validate-json-generated.ts",
+    "generate": "npm run buildJson && npm run buildDiagrams && npm run generateMarkdownDocs",
     "test": "jest"
   },
   "author": "win@customer.io",
