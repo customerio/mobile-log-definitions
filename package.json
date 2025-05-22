@@ -5,11 +5,11 @@
   "description": "A centralized system for defining, managing, and documenting log events across features and platforms.",
   "scripts": {
     "build": "tsc",
-    "buildJson": "npx tsx scripts/generate-json-definitions.ts",
-    "buildDiagrams": "npx tsx scripts/generate-diagrams.ts",
+    "generateJson": "npx tsx scripts/generate-json-definitions.ts",
+    "generateDiagrams": "npx tsx scripts/generate-diagrams.ts",
     "generateMarkdownDocs": "npx tsx scripts/generate-docs.ts",
     "validateGeneration": "npx tsx scripts/validate-json-generated.ts",
-    "generate": "npm run buildJson && npm run buildDiagrams && npm run generateMarkdownDocs",
+    "generate": "npm run generateJson && npm run generateDiagrams && npm run generateMarkdownDocs",
     "test": "jest"
   },
   "author": "win@customer.io",

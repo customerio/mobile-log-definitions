@@ -1,5 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const featuresDir = path.resolve(__dirname, "../features");
+export const jsonDir = path.resolve(__dirname, "../generated/json");
+export const diagramsDir = path.resolve(__dirname, "../generated/mermaid");
+export const docsDir = path.resolve(__dirname, "../docs");
 
 /**
  * Recursively walks a directory and calls a callback for every file.
@@ -51,6 +60,13 @@ export function isJsonFile(file: string) {
 }
 
 /**
+ * Determines if a file is a valid Mermaid file
+ */
+export function isMermaidFile(filePath: string) {
+  return filePath.endsWith(".mmd");
+}
+
+/**
  * Converts a .jsonnet input path to a .json output path.
  */
 export function getJsonOutputPath(
@@ -72,4 +88,9 @@ export function getMermaidOutputPath(
 ) {
   const relativePath = path.relative(inputRoot, inputPath);
   return path.join(outputRoot, relativePath.replace(/\.json$/, ".mmd"));
+}
+
+export function getDocsFilePath(jsonFilePath: string) {
+  const featureName = path.basename(jsonFilePath, ".json");
+  return path.join(docsDir, `${featureName}.md`);
 }

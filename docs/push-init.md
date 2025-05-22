@@ -62,3 +62,23 @@ automatic-profile-push-token-registration | Push | Automatically registering tok
 push-notification-delivered | Push | Push notification delivered -> This log point means a push message was received by the device, at this point the push has not necessarily been shown yet | Tracking push message delivered with deliveryId: {{deliveryId}}
 show-push-notification | Push | Showing push notification (Android only) -> This log point means that a push message that was received will be shown as local notification on the device | Showing notification for message: {{message}}
 push-notification-opened | Push | Push notification opened -> This log point means that a push message was received, shown and clicked by the customer user | Tracking push message opened with payload: {{payload}}
+
+
+Here's an example of the logs in the happy scenario:
+```
+[Init] Creating new instance of CustomerIO SDK version: {{version}}...
+[Init] Initializing SDK module DataPipelines with config: {{config}}
+[Init] CustomerIO DataPipelines module is initialized and ready to use
+[Init] Initializing SDK module MessagingPushFCM with config: {{config}}
+[Push] Getting current device token from Firebase messaging on app launch
+[Push] Google Play Services is available for this device
+[Init] CustomerIO MessagingPushFCM module is initialized and ready to use
+[Init] CustomerIO SDK is initialized and ready to use
+[Push] Got current device token: {{token}}
+[Push] Storing device token: {{token}}
+[Push] Registering device token: {{token}}
+[Push] Automatically registering device token: {{token}} to newly identified profile: {{userId}}
+[Push] Tracking push message delivered with deliveryId: {{deliveryId}}
+[Push] Showing notification for message: {{message}}
+[Push] Tracking push message opened with payload: {{payload}}
+```
