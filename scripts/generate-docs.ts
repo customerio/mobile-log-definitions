@@ -12,6 +12,31 @@ const featuresJsonDir = path.resolve(__dirname, "../generated/json");
 const diagramsDir = path.resolve(__dirname, "../generated/mermaid");
 const docsDir = path.resolve(__dirname, "../docs");
 
+function generateLogExamples(data: LogPoint[]): string[] {
+  // Step 1: Create a map that maps an id to its LogPoint object
+  const logMap = new Map<string, LogPoint>();
+  data.forEach((item) => logMap.set(item.id, item));
+
+  // Step 2: Start from the first object
+  const logs: string[] = [];
+  let current: LogPoint = data[0];
+
+  // Step 3: Follow next/success and collect logs
+  while (current) {
+    logs.push(`[${current.tag}] ${current.log}`);
+
+    const nextId = current.success || current.next;
+    if (!nextId) break;
+
+    const next = logMap.get(nextId);
+    if (!next) break;
+
+    current = next;
+  }
+
+  return logs;
+}
+
 function formatTableRow(log: LogPoint): string {
   let description = log.label;
   if (log.description) {
@@ -44,7 +69,17 @@ function generateMarkdown(
     }
   }
 
-  return `${title}\n\n${mermaidBlock}${tableHeader}\n${tableRows}\n`;
+  logger.info(`Generating log examples for feature: ${featureName}`);
+
+  const exampleLogs = generateLogExamples(logData).join("\n");
+  let exampleContent = "Here's an example of the logs in the happy scenario:\n";
+  exampleContent += '```\n';
+  exampleContent += exampleLogs;
+  exampleContent += '\n```';
+
+  logger.success(`Generated log examples for feature: ${featureName} successfully!`);
+
+  return `${title}\n\n${mermaidBlock}${tableHeader}\n${tableRows}\n\n\n${exampleContent}`;
 }
 
 function appendToMap(key: string, value: string) {

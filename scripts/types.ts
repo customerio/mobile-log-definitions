@@ -4,4 +4,6 @@ export interface LogPoint {
   description?: string;
   log: string;
   tag: string;
+  success?: string;
+  next?: string;
 }
