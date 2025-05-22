@@ -1,14 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { walkDir, isJsonFile, getMermaidOutputPath } from "./utils";
+import { walkDir, isJsonFile, getMermaidOutputPath, diagramsDir, jsonDir } from "./utils";
 import logger from "./log-styling";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const INPUT_DIR = path.resolve(__dirname, "../generated/json");
-const OUTPUT_DIR = path.resolve(__dirname, "../generated/mermaid");
 
 type Event = {
   id: string;
@@ -40,10 +33,10 @@ function toMermaid(events: Event[]): string {
 }
 
 function generateDiagram(filePath: string): void {
-  const relativePath = path.relative(INPUT_DIR, filePath);
+  const relativePath = path.relative(jsonDir, filePath);
   logger.info(`Generating diagram for: ${relativePath}`);
 
-  const outputFile = getMermaidOutputPath(filePath, INPUT_DIR, OUTPUT_DIR);
+  const outputFile = getMermaidOutputPath(filePath, jsonDir, diagramsDir);
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
 
   const events: Event[] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -52,8 +45,8 @@ function generateDiagram(filePath: string): void {
   fs.writeFileSync(outputFile, output);
 }
 
-if (!fs.existsSync(INPUT_DIR)) {
-  logger.warn(`Generated directory is missing: ${INPUT_DIR}`);
+if (!fs.existsSync(jsonDir)) {
+  logger.warn(`Generated directory is missing: ${jsonDir}`);
   logger.info("This likely means you need to run 'npm run buildJson'");
   process.exit(0);
 }
@@ -61,12 +54,15 @@ if (!fs.existsSync(INPUT_DIR)) {
 logger.heading("Generating Mermaid diagrams from JSON files...");
 logger.blank();
 
-walkDir(INPUT_DIR, (filePath: string) => {
+logger.info('Deleting existing diagrams...');
+fs.rmSync(diagramsDir, { recursive: true, force: true });
+
+walkDir(jsonDir, (filePath: string) => {
   if (isJsonFile(filePath)) {
     generateDiagram(filePath);
   } else {
     logger.warn(
-      `Skipping unsupported file: ${path.relative(INPUT_DIR, filePath)}`
+      `Skipping unsupported file: ${path.relative(jsonDir, filePath)}`
     );
   }
 });

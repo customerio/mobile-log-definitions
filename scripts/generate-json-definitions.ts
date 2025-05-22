@@ -1,24 +1,19 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import {
   walkDir,
   isJsonnetFile,
   isLibSonnetFile,
   getJsonOutputPath,
+  featuresDir,
+  jsonDir,
 } from "./utils";
 import logger from "./log-styling";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const INPUT_DIR = path.resolve(__dirname, "../features");
-const OUTPUT_DIR = path.resolve(__dirname, "../generated/json");
-
 function buildJsonnetFile(inputPath: string): void {
-  const relativePath = path.relative(INPUT_DIR, inputPath);
-  const outputFile = getJsonOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
+  const relativePath = path.relative(featuresDir, inputPath);
+  const outputFile = getJsonOutputPath(inputPath, featuresDir, jsonDir);
 
   fs.mkdirSync(path.dirname(outputFile), { recursive: true });
 
@@ -34,17 +29,20 @@ function buildJsonnetFile(inputPath: string): void {
 logger.heading("Generating features JSON files from Jsonnet definitions...");
 logger.blank();
 
-if (!fs.existsSync(INPUT_DIR)) {
-  logger.warn(`Features directory missing: ${INPUT_DIR}`);
+if (!fs.existsSync(featuresDir)) {
+  logger.warn(`Features directory missing: ${featuresDir}`);
   process.exit(0);
 }
 
-walkDir(INPUT_DIR, (filePath: string) => {
+logger.info("Deleting existing docs...");
+fs.rmSync(jsonDir, { recursive: true, force: true });
+
+walkDir(featuresDir, (filePath: string) => {
   if (isJsonnetFile(filePath)) {
     buildJsonnetFile(filePath);
   } else if (!isLibSonnetFile(filePath)) {
     logger.warn(
-      `Skipping unsupported file: ${path.relative(INPUT_DIR, filePath)}`
+      `Skipping unsupported file: ${path.relative(featuresDir, filePath)}`
     );
   }
 });
