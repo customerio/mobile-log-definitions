@@ -64,7 +64,7 @@ npm install
 Run the build script to generate `.json` files from all `.jsonnet` files in the `features/` directory:
 
 ```bash
-npm run buildJson
+npm run generateJson
 ```
 
 ### 3. Build Mermaid diagrams
@@ -72,7 +72,7 @@ npm run buildJson
 Run the build script to generate `.mmd` diagrams from all `.json` files in the `generated/json` directory:
 
 ```bash
-npm run buildDiagrams
+npm run generateDiagrams
 ```
 
 ### 4. Build feature docs
@@ -100,8 +100,8 @@ You can also run `npm run generate` to generate all JSON, Mermaid diagrams and d
 To define a new logging feature:
 
 1. Create a `.jsonnet` file under `features/<your-feature>/`
-2. Run `npm run buildJson` to generate the `.json` file
-3. Run `npm run buildDiagrams` to generate the `.mmd` file
+2. Run `npm run generateJson` to generate the `.json` file
+3. Run `npm run generateDiagrams` to generate the `.mmd` file
 4. Run `npm run generateMarkdownDocs` to generate `.md` docs files
 5. Add a test under `__tests__/<your-feature>.test.js`
 6. Run `npm test` to validate

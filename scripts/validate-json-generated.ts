@@ -61,7 +61,7 @@ if (
     logger.error(
       "Missing generated JSON files for the following Jsonnet definitions:"
     );
-    logger.info("This likely means you need to run 'npm run buildJson'");
+    logger.info("This likely means you need to run 'npm run generateJson'");
     missingJsonFiles.forEach((file: string) => {
       logger.error(`  - ${file}`);
     });
@@ -71,7 +71,7 @@ if (
     logger.error(
       "Missing generated diagram files for the following Jsonnet definitions:"
     );
-    logger.info("This likely means you need to run 'npm run buildDiagrams'");
+    logger.info("This likely means you need to run 'npm run generateDiagrams'");
     missingDiagramFiles.forEach((file: string) => {
       logger.error(`  - ${file}`);
     });
