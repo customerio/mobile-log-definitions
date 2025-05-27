@@ -1,41 +1,93 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import logger from "./log-styling";
-import { walkDir, isJsonnetFile, getJsonOutputPath } from "./utils";
+import {
+  walkDir,
+  isJsonnetFile,
+  getJsonOutputPath,
+  featuresDir,
+  jsonDir,
+  diagramsDir,
+  docsDir,
+  getMermaidOutputPath,
+  getDocsFilePath,
+} from "./utils";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const requiredDirs = [featuresDir, jsonDir, diagramsDir, docsDir];
 
-const INPUT_DIR = path.resolve(__dirname, "../features");
-const OUTPUT_DIR = path.resolve(__dirname, "../generated/json");
+requiredDirs.forEach((dir) => {
+  if (!fs.existsSync(dir)) {
+    logger.warn(`Directory missing: ${dir}`);
+    process.exit(0);
+  }
+});
 
-if (!fs.existsSync(INPUT_DIR)) {
-  logger.warn(`Features directory missing: ${INPUT_DIR}`);
-  process.exit(0);
-}
+const missingJsonFiles: string[] = [];
+const missingDiagramFiles: string[] = [];
+const missingDocsFiles: string[] = [];
 
-const missingFiles: string[] = [];
-
-walkDir(INPUT_DIR, (inputPath: string) => {
+walkDir(featuresDir, (inputPath: string) => {
   if (isJsonnetFile(inputPath)) {
-    const relativePath = path.relative(INPUT_DIR, inputPath);
-    const expectedOutputPath = getJsonOutputPath(inputPath, INPUT_DIR, OUTPUT_DIR);
+    const relativePath = path.relative(featuresDir, inputPath);
+    const expectedJsonPath = getJsonOutputPath(inputPath, featuresDir, jsonDir);
+    const expectedMermaidPath = getMermaidOutputPath(
+      expectedJsonPath,
+      jsonDir,
+      diagramsDir
+    );
+    const expectedDocsPath = getDocsFilePath(expectedJsonPath);
 
-    if (!fs.existsSync(expectedOutputPath)) {
-      missingFiles.push(relativePath);
+    if (!fs.existsSync(expectedJsonPath)) {
+      missingJsonFiles.push(relativePath);
+    }
+    if (!fs.existsSync(expectedMermaidPath)) {
+      missingDiagramFiles.push(relativePath);
+    }
+    if (!fs.existsSync(expectedDocsPath)) {
+      missingDocsFiles.push(relativePath);
     }
   }
 });
 
-if (missingFiles.length === 0) {
+if (
+  missingJsonFiles.length === 0 &&
+  missingDiagramFiles.length === 0 &&
+  missingDocsFiles.length === 0
+) {
   logger.success("All Jsonnet files have corresponding generated JSON files!");
   process.exit(0);
 } else {
-  logger.error("Missing generated JSON files for the following Jsonnet definitions:");
-  logger.info("This likely means you need to run 'npm run buildJson'");
-  missingFiles.forEach((file: string) => {
-    logger.error(`  - ${file}`);
-  });
+  if (missingJsonFiles.length > 0) {
+    logger.error(
+      "Missing generated JSON files for the following Jsonnet definitions:"
+    );
+    logger.info("This likely means you need to run 'npm run generateJson'");
+    missingJsonFiles.forEach((file: string) => {
+      logger.error(`  - ${file}`);
+    });
+  }
+
+  if (missingDiagramFiles.length > 0) {
+    logger.error(
+      "Missing generated diagram files for the following Jsonnet definitions:"
+    );
+    logger.info("This likely means you need to run 'npm run generateDiagrams'");
+    missingDiagramFiles.forEach((file: string) => {
+      logger.error(`  - ${file}`);
+    });
+  }
+
+  if (missingDocsFiles.length > 0) {
+    logger.error(
+      "Missing generated docs files for the following Jsonnet definitions:"
+    );
+    logger.info(
+      "This likely means you need to run 'npm run generateMarkdownDocs'"
+    );
+    missingDocsFiles.forEach((file: string) => {
+      logger.error(`  - ${file}`);
+    });
+  }
+
   process.exit(1);
 }
